@@ -1,0 +1,51 @@
+﻿@model News.Models.Domin.Tbl_Posts
+
+@{
+    ViewBag.Title = Model.Post_Title;
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+<section id="contentSection" style="text-align:right;direction:rtl">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="left_content">
+                <div class="single_page">
+                    <ol class="breadcrumb">
+                        <li><a href="../MainPage/Main">صفحه اصلی</a></li>
+                        <li class="active">@Model.Post_Title</li>
+                    </ol>
+                    <h1 style="font-family:'Titr'">@Model.Post_Title</h1>
+                    <div class="post_commentbox"> <span><i class="fa fa-calendar"></i>@Model.Post_Date</span> </div>
+                    <div class="single_page_content">
+                        <img class="img-center" src="@Model.Post_Image" alt="">
+                        <blockquote style="border-right:5px solid #eee;"> @Model.Post_Description </blockquote>
+                    </div>
+                    <div class="social_link">
+                        <ul class="sociallink_nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-slit">
+            <a class="prev" href="#">
+                <span class="icon-wrap"><i class="fa fa-angle-left"></i></span>
+                <div>
+                    <h3>City Lights</h3> <img src="../Content/images/post_img1.jpg" alt="" />
+                </div>
+            </a>
+            <a class="next" href="#">
+                <span class="icon-wrap"><i class="fa fa-angle-right"></i></span>
+                <div>
+                    <h3>Street Hills</h3> <img src="../Content/images/post_img1.jpg" alt="" />
+                </div>
+            </a>
+        </nav>
+    </div>
+</section>
+

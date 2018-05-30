@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Cat">
+          <Key>
+            <PropertyRef Name="Cat_id" />
+          </Key>
+          <Property Name="Cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cat_name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tbl_Posts">
+          <Key>
+            <PropertyRef Name="Post_id" />
+          </Key>
+          <Property Name="Post_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Post_Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Post_Summery" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Post_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Post_Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Post_Image" Type="nvarchar" MaxLength="350" />
+          <Property Name="Post_Userid" Type="int" Nullable="false" />
+          <Property Name="Post_Catid" Type="int" Nullable="false" />
+          <Property Name="Post_IsBreaking" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_Roll">
+          <Key>
+            <PropertyRef Name="Roll_id" />
+          </Key>
+          <Property Name="Roll_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Roll_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="User_Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="User_Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="User_Roll" Type="int" />
+        </EntityType>
+        <Association Name="FK_Tbl_Posts_Tbl_Cat">
+          <End Role="Tbl_Cat" Type="Self.Tbl_Cat" Multiplicity="1" />
+          <End Role="Tbl_Posts" Type="Self.Tbl_Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Cat">
+              <PropertyRef Name="Cat_id" />
+            </Principal>
+            <Dependent Role="Tbl_Posts">
+              <PropertyRef Name="Post_Catid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Posts_Tbl_User">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="1" />
+          <End Role="Tbl_Posts" Type="Self.Tbl_Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Tbl_Posts">
+              <PropertyRef Name="Post_Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_User_Tbl_Roll">
+          <End Role="Tbl_Roll" Type="Self.Tbl_Roll" Multiplicity="0..1" />
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Roll">
+              <PropertyRef Name="Roll_id" />
+            </Principal>
+            <Dependent Role="Tbl_User">
+              <PropertyRef Name="User_Roll" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewsModelStoreContainer">
+          <EntitySet Name="Tbl_Cat" EntityType="Self.Tbl_Cat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Posts" EntityType="Self.Tbl_Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Roll" EntityType="Self.Tbl_Roll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Posts_Tbl_Cat" Association="Self.FK_Tbl_Posts_Tbl_Cat">
+            <End Role="Tbl_Cat" EntitySet="Tbl_Cat" />
+            <End Role="Tbl_Posts" EntitySet="Tbl_Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Posts_Tbl_User" Association="Self.FK_Tbl_Posts_Tbl_User">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Posts" EntitySet="Tbl_Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_User_Tbl_Roll" Association="Self.FK_Tbl_User_Tbl_Roll">
+            <End Role="Tbl_Roll" EntitySet="Tbl_Roll" />
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Cat">
+          <Key>
+            <PropertyRef Name="Cat_id" />
+          </Key>
+          <Property Name="Cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cat_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Posts" Relationship="Self.FK_Tbl_Posts_Tbl_Cat" FromRole="Tbl_Cat" ToRole="Tbl_Posts" />
+        </EntityType>
+        <EntityType Name="Tbl_Posts">
+          <Key>
+            <PropertyRef Name="Post_id" />
+          </Key>
+          <Property Name="Post_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Post_Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Post_Summery" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Post_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Post_Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Post_Image" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="Post_Userid" Type="Int32" Nullable="false" />
+          <Property Name="Post_Catid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Cat" Relationship="Self.FK_Tbl_Posts_Tbl_Cat" FromRole="Tbl_Posts" ToRole="Tbl_Cat" />
+          <NavigationProperty Name="Tbl_User" Relationship="Self.FK_Tbl_Posts_Tbl_User" FromRole="Tbl_Posts" ToRole="Tbl_User" />
+          <Property Name="Post_IsBreaking" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Tbl_Roll">
+          <Key>
+            <PropertyRef Name="Roll_id" />
+          </Key>
+          <Property Name="Roll_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Roll_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tbl_User" Relationship="Self.FK_Tbl_User_Tbl_Roll" FromRole="Tbl_Roll" ToRole="Tbl_User" />
+        </EntityType>
+        <EntityType Name="Tbl_User">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Roll" Type="Int32" />
+          <NavigationProperty Name="Tbl_Posts" Relationship="Self.FK_Tbl_Posts_Tbl_User" FromRole="Tbl_User" ToRole="Tbl_Posts" />
+          <NavigationProperty Name="Tbl_Roll" Relationship="Self.FK_Tbl_User_Tbl_Roll" FromRole="Tbl_User" ToRole="Tbl_Roll" />
+        </EntityType>
+        <Association Name="FK_Tbl_Posts_Tbl_Cat">
+          <End Role="Tbl_Cat" Type="Self.Tbl_Cat" Multiplicity="1" />
+          <End Role="Tbl_Posts" Type="Self.Tbl_Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Cat">
+              <PropertyRef Name="Cat_id" />
+            </Principal>
+            <Dependent Role="Tbl_Posts">
+              <PropertyRef Name="Post_Catid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Posts_Tbl_User">
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="1" />
+          <End Role="Tbl_Posts" Type="Self.Tbl_Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_User">
+              <PropertyRef Name="User_id" />
+            </Principal>
+            <Dependent Role="Tbl_Posts">
+              <PropertyRef Name="Post_Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_User_Tbl_Roll">
+          <End Role="Tbl_Roll" Type="Self.Tbl_Roll" Multiplicity="0..1" />
+          <End Role="Tbl_User" Type="Self.Tbl_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Roll">
+              <PropertyRef Name="Roll_id" />
+            </Principal>
+            <Dependent Role="Tbl_User">
+              <PropertyRef Name="User_Roll" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewsDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Cat" EntityType="Self.Tbl_Cat" />
+          <EntitySet Name="Tbl_Posts" EntityType="Self.Tbl_Posts" />
+          <EntitySet Name="Tbl_Roll" EntityType="Self.Tbl_Roll" />
+          <EntitySet Name="Tbl_User" EntityType="Self.Tbl_User" />
+          <AssociationSet Name="FK_Tbl_Posts_Tbl_Cat" Association="Self.FK_Tbl_Posts_Tbl_Cat">
+            <End Role="Tbl_Cat" EntitySet="Tbl_Cat" />
+            <End Role="Tbl_Posts" EntitySet="Tbl_Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Posts_Tbl_User" Association="Self.FK_Tbl_Posts_Tbl_User">
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+            <End Role="Tbl_Posts" EntitySet="Tbl_Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_User_Tbl_Roll" Association="Self.FK_Tbl_User_Tbl_Roll">
+            <End Role="Tbl_Roll" EntitySet="Tbl_Roll" />
+            <End Role="Tbl_User" EntitySet="Tbl_User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NewsModelStoreContainer" CdmEntityContainer="NewsDB">
+          <EntitySetMapping Name="Tbl_Cat">
+            <EntityTypeMapping TypeName="NewsModel.Tbl_Cat">
+              <MappingFragment StoreEntitySet="Tbl_Cat">
+                <ScalarProperty Name="Cat_id" ColumnName="Cat_id" />
+                <ScalarProperty Name="Cat_name" ColumnName="Cat_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Posts">
+            <EntityTypeMapping TypeName="NewsModel.Tbl_Posts">
+              <MappingFragment StoreEntitySet="Tbl_Posts">
+                <ScalarProperty Name="Post_IsBreaking" ColumnName="Post_IsBreaking" />
+                <ScalarProperty Name="Post_id" ColumnName="Post_id" />
+                <ScalarProperty Name="Post_Title" ColumnName="Post_Title" />
+                <ScalarProperty Name="Post_Summery" ColumnName="Post_Summery" />
+                <ScalarProperty Name="Post_Description" ColumnName="Post_Description" />
+                <ScalarProperty Name="Post_Date" ColumnName="Post_Date" />
+                <ScalarProperty Name="Post_Image" ColumnName="Post_Image" />
+                <ScalarProperty Name="Post_Userid" ColumnName="Post_Userid" />
+                <ScalarProperty Name="Post_Catid" ColumnName="Post_Catid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Roll">
+            <EntityTypeMapping TypeName="NewsModel.Tbl_Roll">
+              <MappingFragment StoreEntitySet="Tbl_Roll">
+                <ScalarProperty Name="Roll_id" ColumnName="Roll_id" />
+                <ScalarProperty Name="Roll_Name" ColumnName="Roll_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_User">
+            <EntityTypeMapping TypeName="NewsModel.Tbl_User">
+              <MappingFragment StoreEntitySet="Tbl_User">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="User_Email" ColumnName="User_Email" />
+                <ScalarProperty Name="User_Password" ColumnName="User_Password" />
+                <ScalarProperty Name="User_Roll" ColumnName="User_Roll" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

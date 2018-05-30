@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Message";
+    Layout = "~/Views/Shared/_Register.cshtml";
+}
+
+@{if (ViewBag.state != "error")
+    {
+        <p class="messagebox-success" style="font-family: 'Nazanin' !important">@ViewBag.message</p>
+    }
+    else
+    {
+        <p class="messagebox-failed" style="font-family: 'Nazanin' !important">@ViewBag.message</p>
+     }
+    }
+

@@ -1,0 +1,236 @@
+﻿@model News.Models.Domin.Tbl_Posts
+@using News.Models.Repositoty
+@using News.Models.Domin;
+
+@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+
+<!-- Latest News -->
+<section id="newsSection">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="latest_newsarea">
+                <span>اخرین اخبار</span>
+                <ul id="ticker01" class="news_sticker">
+                    @{
+                        Rep_posts post = new Rep_posts();
+
+                        foreach (var item in post.Get_Breaking())
+                        {
+                            <li>
+                                <a href="../MainPage/View_Post?id=@item.Post_id"><img src="../Content/images/news_thumbnail3.jpg" alt="">@item.Post_Title</a>
+                            </li>
+                        }
+                    }
+
+                </ul>
+                <div class="social_area">
+                    <ul class="social_nav">
+                        <li class="facebook">
+                            <a href="#"></a>
+                        </li>
+                        <li class="twitter">
+                            <a href="#"></a>
+                        </li>
+                        <li class="flickr">
+                            <a href="#"></a>
+                        </li>
+                        <li class="pinterest">
+                            <a href="#"></a>
+                        </li>
+                        <li class="googleplus">
+                            <a href="#"></a>
+                        </li>
+                        <li class="vimeo">
+                            <a href="#"></a>
+                        </li>
+                        <li class="youtube">
+                            <a href="#"></a>
+                        </li>
+                        <li class="mail">
+                            <a href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Slider -->
+<section id="sliderSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="slick_slider">
+                @{
+                    foreach (var item in post.Get_Breaking())
+                    {
+                        <div class="single_iteam">
+                            <a href="../MainPage/View_Post?id=@item.Post_id"> <img src="@item.Post_Image" alt=""></a>
+                            <div class="slider_article">
+                                <h2><a class="slider_tittle Font_Titr" href="../MainPage/View_Post?id=@item.Post_id">@item.Post_Title</a></h2>
+                                <p class="Font_Nazanin">@item.Post_Summery</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="latest_post">
+                <h2><span>جدیدترین اخبار</span></h2>
+                <div class="latest_post_container">
+                    <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
+                    <ul class="latest_postnav" style="direction:rtl !important;">
+                       @{
+                           foreach (var item in post.Get_Last_ten())
+                           {
+                            <li>
+                                <div class="media">
+                                    <a href="../MainPage/View_Post?id=@item.Post_id" class="media-left"> <img alt="" src="@item.Post_Image"> </a>
+                                    <div class="media-body"> <a href="../MainPage/View_Post?id=@item.Post_id" class="catg_title"> @item.Post_Title</a> </div>
+                                </div>
+                            </li>
+                           }
+                    }
+ 
+                    </ul>
+                    <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Content -->
+<section id="contentSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="left_content">
+                <div class="single_post_content">
+                    <h2><span>اخبار</span></h2>
+
+                             @{
+                                 bool x = true;
+                                 bool counter = false;
+                                 Tbl_Posts p = new Tbl_Posts();
+                                 foreach (var item in post.Get_Posts())
+                                 {
+                                     if (!counter)
+                                     {
+                                         p = item;
+                                         counter = true;
+                                     }
+                                     else
+                                     {
+                                        <div class="row">
+                                            <div class="single_post_content_right">
+                                                <ul class="business_catgnav  wow fadeInDown">
+                                                    <li>
+                                                        <figure class="bsbig_fig">
+                                                            <a href="../MainPage/View_Post?id=@p.Post_id" class="featured_img"> <img alt="" src="@p.Post_Image"> <span class="overlay"></span> </a>
+                                                            <figcaption> <a class="Font_Titr" href="../MainPage/View_Post?id=@p.Post_id">@p.Post_Title</a> </figcaption>
+                                                            <p>@p.Post_Summery</p>
+                                                            <a class="btn_continue" href="../MainPage/View_Post?id=@p.Post_id">ادامه</a>
+                                                        </figure>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="single_post_content_left">
+                                                <ul class="business_catgnav  wow fadeInDown">
+                                                    <li>
+                                                        <figure class="bsbig_fig">
+                                                            <a href="../MainPage/View_Post?id=@item.Post_id" class="featured_img"> <img alt="" src="@item.Post_Image"> <span class="overlay"></span> </a>
+                                                            <figcaption> <a class="Font_Titr" href="../MainPage/View_Post?id=@item.Post_id">@item.Post_Title</a> </figcaption>
+                                                            <p>@item.Post_Summery</p>
+                                                            <a class="btn_continue" href="../MainPage/View_Post?id=@item.Post_id">ادامه</a>
+                                                        </figure>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                         counter = false;
+                                     }
+                                 }
+                                 if (counter)
+                                 {
+                                    <div class="row">
+                                        <div class="single_post_content_right">
+                                            <ul class="business_catgnav  wow fadeInDown">
+                                                <li>
+                                                    <figure class="bsbig_fig">
+                                                        <a href="../MainPage/View_Post?id=@p.Post_id" class="featured_img"> <img alt="" src="@p.Post_Image"> <span class="overlay"></span> </a>
+                                                        <figcaption> <a class="Font_Titr" href="../MainPage/View_Post?id=@p.Post_id">@p.Post_Title</a> </figcaption>
+                                                        <p>@p.Post_Summery</p>
+                                                        <a class="btn_continue" href="../MainPage/View_Post?id=@p.Post_id">ادامه</a>
+                                                    </figure>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                 }
+                            }
+
+
+
+
+                </div>
+                <div class="single_post_content">
+                    <h2><span>البوم تصاویر</span></h2>
+                    <ul class="photograph_nav  wow fadeInDown">
+                        <li>
+                            <div class="photo_grid">
+                                <figure class="effect-layla">
+                                    <a class="fancybox-buttons" data-fancybox-group="button" href="../Content/images/photograph_img2.jpg" title="Photography Ttile 1"> <img src="../Content/images/photograph_img2.jpg" alt="" /></a>
+                                </figure>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="photo_grid">
+                                <figure class="effect-layla">
+                                    <a class="fancybox-buttons" data-fancybox-group="button" href="../Content/images/photograph_img3.jpg" title="Photography Ttile 2"> <img src="../Content/images/photograph_img3.jpg" alt="" /> </a>
+                                </figure>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="photo_grid">
+                                <figure class="effect-layla">
+                                    <a class="fancybox-buttons" data-fancybox-group="button" href="../Content/images/photograph_img4.jpg" title="Photography Ttile 3"> <img src="../Content/images/photograph_img4.jpg" alt="" /> </a>
+                                </figure>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="photo_grid">
+                                <figure class="effect-layla">
+                                    <a class="fancybox-buttons" data-fancybox-group="button" href="../Content/images/photograph_img4.jpg" title="Photography Ttile 4"> <img src="../Content/images/photograph_img4.jpg" alt="" /> </a>
+                                </figure>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="photo_grid">
+                                <figure class="effect-layla">
+                                    <a class="fancybox-buttons" data-fancybox-group="button" href="../Content/images/photograph_img2.jpg" title="Photography Ttile 5"> <img src="../Content/images/photograph_img2.jpg" alt="" /> </a>
+                                </figure>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="photo_grid">
+                                <figure class="effect-layla">
+                                    <a class="fancybox-buttons" data-fancybox-group="button" href="../Content/images/photograph_img3.jpg" title="Photography Ttile 6"> <img src="../Content/images/photograph_img3.jpg" alt="" /> </a>
+                                </figure>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <aside class="right_content">
+            </aside>
+        </div>
+    </div>
+</section>
+
+
