@@ -14,6 +14,7 @@ namespace News.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            ViewBag.title = "ثبت نام/ورود";
             return View();
         }
 
@@ -46,6 +47,7 @@ namespace News.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            ViewBag.title = "ثبت نام/ورود";
             return View();
         }
 

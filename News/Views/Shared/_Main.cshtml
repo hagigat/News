@@ -147,6 +147,21 @@
         );
 
     </script>
+    <script>
+        $(function () {
+            $('.btn_edit').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("GetEdit","Profile")',
+                    data: { id: $(this).attr('id') },
+                    success: function (res) {
+                        $('.modal-body').html(res);
+                    }
+                });
+            });
+        }
+       );
+    </script>
 </body>
 
 </html>
