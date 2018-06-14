@@ -921,6 +921,10 @@ img {
         width: 100%;
     }
 
+    .latest_postnav li a{
+        padding: 0 10px !important;
+    }
+
 .latest_post_container {
     display: inline;
     float: left;
@@ -1934,6 +1938,16 @@ figure.effect-layla:hover img {
     .contact_form input[type="submit"]:hover {
         border: 1px solid #d083cf;
     }
+
+    .alert,.mybtn{
+        font-family:'Nazanin' !important;
+    }
+    .mybtn{
+        padding:5px 10px;
+        border-radius:5px;
+    }
+
+    
 
 @media(max-width:1199px) {
     .logo_area {

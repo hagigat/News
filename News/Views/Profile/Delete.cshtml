@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Register.cshtml";
+}
+
+    @{
+        if (ViewBag.type == "success")
+        {
+            <div >
+                <div class="alert alert-success" style="text-align:right">
+                    ! پست با موفقیت حذف شد
+                </div>
+                <a class="mybtn btn btn-primary" href="../Profile/User_Profile">بازگشت</a>
+            </div>
+        }
+        else
+        {
+            <div>
+                <div class="alert alert-danger" style="text-align:right">
+                    ! عملیات با شکست مواجه شد
+                </div>
+                <a class=" mybtn btn-danger" href="../Profile/User_Profile">بازگشت</a>
+            </div>
+        }
+    }

@@ -69,5 +69,27 @@ namespace News.Controllers
             }
             
         }
+        public ActionResult GetId(string id)
+        {
+            return Content("<a class=\"btn btn-danger\"  href=\"../Profile/Delete?delid="+id+"\">حذف</a>");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(string delid)
+        {
+            try
+            {
+                int idd = Int32.Parse(delid);
+                var q = db.Tbl_Posts.Single(x => x.Post_id == idd);
+                db.Tbl_Posts.Remove(q);
+                db.SaveChanges();
+                ViewBag.type = "success";
+            }
+            catch (Exception)
+            {
+                ViewBag.type = "failed";
+            }
+            return View();
+        }
     }
 }

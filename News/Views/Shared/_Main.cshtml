@@ -131,6 +131,22 @@
     <script src="../Scripts/jquery.newsTicker.min.js"></script>
     <script src="../Scripts/jquery.fancybox.pack.js"></script>
     <script src="../Scripts/custom.js"></script>
+    <script>
+        $(function () {
+            $('.btn_del').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("GetId","Profile")',
+                    data: { id: $(this).attr('id') },
+                    success: function (res) {
+                        $('.modal-footer').html(res);
+                    }
+                });
+            });
+        }
+        );
+
+    </script>
 </body>
 
 </html>

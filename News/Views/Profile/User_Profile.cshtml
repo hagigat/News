@@ -1,5 +1,6 @@
 ﻿@model News.Models.Domin.Tbl_Posts
 @using News.Models.Repositoty;
+@using News.Models.Domin;
 
 @{
     ViewBag.Title = "User_Profile";
@@ -7,54 +8,96 @@
 }
 
 <section id="contentSection">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">هشدار حذف</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align:right">آیا مایل به حذف هستید؟</p>
+                </div>
+                <div class="modal-footer row">
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="">
                 <div class="single_post_content">
                     <h2><span class="Font_Titr">پست های من</span></h2>
-                    
+
                     @{
                         Rep_posts post = new Rep_posts();
-                        bool x = true;
+                        bool counter = false;
+                        Tbl_Posts p = new Tbl_Posts();
                         foreach (var item in post.Get_MyPost(@ViewBag.id))
                         {
 
-                            if (x)
+                            if (!counter)
                             {
+                                p = item;
+                                counter = true;
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="single_post_content_right">
+                                        <ul class="business_catgnav  wow fadeInDown">
+                                            <li>
+                                                <figure class="bsbig_fig">
+                                                    <a href="pages/single_page.html" class="featured_img"> <img alt="" src="@p.Post_Image"> <span class="overlay"></span> </a>
+                                                    <figcaption> <a class="Font_Titr" href="pages/single_page.html">@p.Post_Title</a> </figcaption>
+                                                    <p>@p.Post_Summery</p>
+                                                    <a class="btn_continue" href="../MainPage/View_Post?id=@p.Post_id">ادامه</a>
+                                                    <a id="@p.Post_id" class="btn_del btn_continue" style="background:#eb0000" data-toggle="modal" data-target="#myModal">حذف</a>
+                                                    <a class="btn_continue" style="background:#1f00eb" href="../MainPage/View_Edit?id=@p.Post_id">ویرایش</a>
+                                                </figure>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="single_post_content_left">
+                                        <ul class="business_catgnav  wow fadeInDown">
+                                            <li>
+                                                <figure class="bsbig_fig">
+                                                    <a href="pages/single_page.html" class="featured_img"> <img alt="" src="@item.Post_Image"> <span class="overlay"></span> </a>
+                                                    <figcaption> <a class="Font_Titr" href="pages/single_page.html">@item.Post_Title</a> </figcaption>
+                                                    <p>@item.Post_Summery</p>
+                                                    <a class="btn_continue" href="../MainPage/View_Post?id=@item.Post_id">ادامه</a>
+                                                    <a class="btn_del btn_continue" style="background:#eb0000" data-toggle="modal" data-target="#myModal">حذف</a>
+                                                    <a class="btn_continue" style="background:#1f00eb" href="../MainPage/View_Post?id=@item.Post_id">ویرایش</a>
+                                                </figure>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                counter = false;
+                            }
+
+                        }
+                        if (counter)
+                        {
+                            <div class="row">
                                 <div class="single_post_content_right">
                                     <ul class="business_catgnav  wow fadeInDown">
                                         <li>
                                             <figure class="bsbig_fig">
-                                                <a href="pages/single_page.html" class="featured_img"> <img alt="" src="@item.Post_Image"> <span class="overlay"></span> </a>
-                                                <figcaption> <a class="Font_Titr" href="pages/single_page.html">@item.Post_Title</a> </figcaption>
-                                                <p>@item.Post_Summery</p>
-                                                <a class="btn_continue"  href="../MainPage/View_Post?id=@item.Post_id">ادامه</a>
-                                                <a class="btn_continue" style="background:#eb0000" href="../MainPage/View_Delete?id=@item.Post_id">حذف</a>
-                                                <a class="btn_continue" style="background:#1f00eb" href="../MainPage/View_Edit?id=@item.Post_id">ویرایش</a>
+                                                <a href="pages/single_page.html" class="featured_img"> <img alt="" src="@p.Post_Image"> <span class="overlay"></span> </a>
+                                                <figcaption> <a class="Font_Titr" href="pages/single_page.html">@p.Post_Title</a> </figcaption>
+                                                <p>@p.Post_Summery</p>
+                                                <a class="btn_continue" href="../MainPage/View_Post?id=@p.Post_id">ادامه</a>
+                                                <a id="@p.Post_id" class="btn_del btn_continue" style="background:#eb0000" data-toggle="modal" data-target="#myModal">حذف</a>
+                                                <a class="btn_continue" style="background:#1f00eb" href="../MainPage/View_Edit?id=@p.Post_id">ویرایش</a>
                                             </figure>
                                         </li>
                                     </ul>
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="single_post_content_left">
-                                    <ul class="business_catgnav  wow fadeInDown">
-                                        <li>
-                                            <figure class="bsbig_fig">
-                                                <a href="pages/single_page.html" class="featured_img"> <img alt="" src="@item.Post_Image"> <span class="overlay"></span> </a>
-                                                <figcaption> <a class="Font_Titr" href="pages/single_page.html">@item.Post_Title</a> </figcaption>
-                                                <p>@item.Post_Summery</p>
-                                                <a class="btn_continue" href="../MainPage/View_Post?id=@item.Post_id">ادامه</a>
-                                                <a class="btn_continue" style="background:#eb0000">حذف</a>
-                                                <a class="btn_continue" style="background:#1f00eb" href="../MainPage/View_Post?id=@item.Post_id">ویرایش</a>
-                                            </figure>
-                                        </li>
-                                    </ul>
-                                </div>
-                            }
-                            x = !x;
+                            </div>
                         }
+                    }
                     }
 
 
@@ -65,7 +108,7 @@
                 <div class="single_post_content">
                     <h2><span class="Font_Titr">پست جدید</span></h2>
                     <section id="new_post">
-                        <form action="Add_Post" method="post" class="new_post_add" enctype = "multipart/form-data">
+                        <form action="Add_Post" method="post" class="new_post_add" enctype="multipart/form-data">
                             <label for="txt_title">عنوان</label>
                             <br />
 
@@ -88,14 +131,14 @@
                             <br />
                             <div class="input-file-container" style="direction:rtl; float:right">
                                 <input class="input-file" id="my-file" type="file" name="file">
-                                <label tabindex="0" for="my-file" class="input-file-trigger" style="font-family:'Nasim' !important;text-align:center !important"  >انتخاب فایل</label>
+                                <label tabindex="0" for="my-file" class="input-file-trigger" style="font-family:'Nasim' !important;text-align:center !important">انتخاب فایل</label>
                             </div>
                             <br><br><br><br>
                             <label for="txt_title">خبر فوری</label>
-                            <input type="checkbox" name="Isbreak" value="1" style="width:auto !important; height :auto !important"/>
+                            <input type="checkbox" name="Isbreak" value="1" style="width:auto !important; height :auto !important" />
                             <br>
-                            <br/>
-                            
+                            <br />
+
                             <input class="btn_send" type="submit" value="ارسال" />
                             <br />
                             <br />

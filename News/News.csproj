@@ -370,6 +370,7 @@
     <Content Include="Views\Register\Message.cshtml" />
     <Content Include="Views\Profile\User_Profile.cshtml" />
     <Content Include="Views\MainPage\View_Post.cshtml" />
+    <Content Include="Views\Profile\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
