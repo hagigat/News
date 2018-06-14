@@ -39,5 +39,31 @@ namespace News.Controllers
             }
             return View(posts);
         }
+        public ActionResult call_with_us()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult call_with_us(Tbl_Call u)
+        {
+            NewsDB db = new NewsDB();
+            Tbl_Call user = new Tbl_Call();
+            user.name = u.name;
+            user.email = u.email;
+            user.request = u.request;
+            db.Tbl_Call.Add(user);
+            if (Convert.ToBoolean(db.SaveChanges() > 0))
+            {
+                TempData["message"] = "ثبت درخواست با موفقیت انجام شد";
+                TempData["info"] = "done";
+            }
+            else
+            {
+                TempData["message"] = "ثبت درخواست با شکست مواجه شد.";
+                TempData["info"] = "error";
+            }
+
+            return RedirectToAction("Message", "Register");
+        }
     }
 }

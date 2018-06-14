@@ -1,0 +1,96 @@
+﻿َ@model News.Models.Domin.Tbl_Call
+@using News.Models.Repositoty;
+@{
+    ViewBag.Title = "تماس با ما";
+    Layout = "";
+}
+<!DOCTYPE html>
+<html style="background-image:url('../Content/images/contact-us.jpg') ">
+<head>
+    <link href="~/Content/assets/css/sajjad.css" rel="stylesheet" />
+</head>
+<body dir="rtl">
+
+    <div id="form-main">
+        <div id="form-div">
+            <form class="montform" method="post" action="../MainPage/call_with_us" id="reused_form">
+                <p class="name">
+                    <input name="name" type="text" class="feedback-input" required placeholder="نام و نام خانوادگی" id="name" />
+                </p>
+                <p class="email">
+                    <input name="email" type="email" required class="feedback-input" id="email" placeholder="ایمیل" />
+                </p>
+                <p class="text">
+                    <textarea name="request" class="feedback-input" id="comment" placeholder="پیغام"></textarea>
+                </p>
+                <div class="submit">
+                    <button type="submit" class="button-blue">ارسال</button>
+                    <div class="ease"></div>
+                </div>
+            </form>
+            <div id="error_message" style="width:100%; height:100%; display:none; ">
+                <h4>Error</h4>
+                Sorry there was an error sending your form.
+            </div>
+            <div id="success_message" style="width:100%; height:100%; display:none; ">
+                <h2>Success! Your Message was Sent Successfully.</h2>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            function after_form_submitted(data) {
+                if (data.result == 'success') {
+                    $('form#reused_form').hide();
+                    $('#success_message').show();
+                    $('#error_message').hide();
+                }
+                else {
+                    $('#error_message').append('<ul></ul>');
+
+                    jQuery.each(data.errors, function (key, val) {
+                        $('#error_message ul').append('<li>' + key + ':' + val + '</li>');
+                    });
+                    $('#success_message').hide();
+                    $('#error_message').show();
+
+                    //reverse the response on the button
+                    $('button[type="button"]', $form).each(function () {
+                        $btn = $(this);
+                        label = $btn.prop('orig_label');
+                        if (label) {
+                            $btn.prop('type', 'submit');
+                            $btn.text(label);
+                            $btn.prop('orig_label', '');
+                        }
+                    });
+
+                }//else
+            }
+
+            $('#reused_form').submit(function (e) {
+                e.preventDefault();
+
+                $form = $(this);
+                //show some response on the button
+                $('button[type="submit"]', $form).each(function () {
+                    $btn = $(this);
+                    $btn.prop('type', 'button');
+                    $btn.prop('orig_label', $btn.text());
+                    $btn.text('Sending ...');
+                });
+
+
+                $.ajax({
+                    type: "POST",
+                    url: 'handler.php',
+                    data: $form.serialize(),
+                    success: after_form_submitted,
+                    dataType: 'json'
+                });
+
+            });
+        });
+    </script>
+</body>
+</html>

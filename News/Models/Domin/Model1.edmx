@@ -4,7 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="NewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="NewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Call">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="request" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Tbl_Cat">
           <Key>
             <PropertyRef Name="Cat_id" />
@@ -20,7 +29,7 @@
           <Property Name="Post_Title" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Post_Summery" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Post_Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Post_Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Post_Date" Type="datetime" Nullable="false" />
           <Property Name="Post_Image" Type="nvarchar" MaxLength="350" />
           <Property Name="Post_Userid" Type="int" Nullable="false" />
           <Property Name="Post_Catid" Type="int" Nullable="false" />
@@ -80,6 +89,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NewsModelStoreContainer">
+          <EntitySet Name="Tbl_Call" EntityType="Self.Tbl_Call" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Cat" EntityType="Self.Tbl_Cat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Posts" EntityType="Self.Tbl_Posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Roll" EntityType="Self.Tbl_Roll" Schema="dbo" store:Type="Tables" />
@@ -97,10 +107,20 @@
             <End Role="Tbl_User" EntitySet="Tbl_User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Call">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="request" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Tbl_Cat">
           <Key>
             <PropertyRef Name="Cat_id" />
@@ -117,13 +137,13 @@
           <Property Name="Post_Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Post_Summery" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Post_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Post_Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Post_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Post_Image" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="Post_Userid" Type="Int32" Nullable="false" />
           <Property Name="Post_Catid" Type="Int32" Nullable="false" />
+          <Property Name="Post_IsBreaking" Type="Boolean" />
           <NavigationProperty Name="Tbl_Cat" Relationship="Self.FK_Tbl_Posts_Tbl_Cat" FromRole="Tbl_Posts" ToRole="Tbl_Cat" />
           <NavigationProperty Name="Tbl_User" Relationship="Self.FK_Tbl_Posts_Tbl_User" FromRole="Tbl_Posts" ToRole="Tbl_User" />
-          <Property Name="Post_IsBreaking" Type="Boolean" />
         </EntityType>
         <EntityType Name="Tbl_Roll">
           <Key>
@@ -182,6 +202,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NewsDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Call" EntityType="Self.Tbl_Call" />
           <EntitySet Name="Tbl_Cat" EntityType="Self.Tbl_Cat" />
           <EntitySet Name="Tbl_Posts" EntityType="Self.Tbl_Posts" />
           <EntitySet Name="Tbl_Roll" EntityType="Self.Tbl_Roll" />
@@ -205,6 +226,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NewsModelStoreContainer" CdmEntityContainer="NewsDB">
+          <EntitySetMapping Name="Tbl_Call">
+            <EntityTypeMapping TypeName="NewsModel.Tbl_Call">
+              <MappingFragment StoreEntitySet="Tbl_Call">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="request" ColumnName="request" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Cat">
             <EntityTypeMapping TypeName="NewsModel.Tbl_Cat">
               <MappingFragment StoreEntitySet="Tbl_Cat">
@@ -216,7 +247,6 @@
           <EntitySetMapping Name="Tbl_Posts">
             <EntityTypeMapping TypeName="NewsModel.Tbl_Posts">
               <MappingFragment StoreEntitySet="Tbl_Posts">
-                <ScalarProperty Name="Post_IsBreaking" ColumnName="Post_IsBreaking" />
                 <ScalarProperty Name="Post_id" ColumnName="Post_id" />
                 <ScalarProperty Name="Post_Title" ColumnName="Post_Title" />
                 <ScalarProperty Name="Post_Summery" ColumnName="Post_Summery" />
@@ -225,6 +255,7 @@
                 <ScalarProperty Name="Post_Image" ColumnName="Post_Image" />
                 <ScalarProperty Name="Post_Userid" ColumnName="Post_Userid" />
                 <ScalarProperty Name="Post_Catid" ColumnName="Post_Catid" />
+                <ScalarProperty Name="Post_IsBreaking" ColumnName="Post_IsBreaking" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -261,7 +292,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -18,8 +18,6 @@ namespace News.Models.Domin
         public NewsDB()
             : base("name=NewsDB")
         {
-            /*System.Data.Entity.Database.SetInitializer<NewsDB>(
-                new DropCreateDatabaseIfModelChanges<NewsDB>());*/
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -27,6 +25,7 @@ namespace News.Models.Domin
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Tbl_Call> Tbl_Call { get; set; }
         public virtual DbSet<Tbl_Cat> Tbl_Cat { get; set; }
         public virtual DbSet<Tbl_Posts> Tbl_Posts { get; set; }
         public virtual DbSet<Tbl_Roll> Tbl_Roll { get; set; }
