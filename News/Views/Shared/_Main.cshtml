@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Urmia News</title>
+    <title>@ViewBag.title</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +43,7 @@
                                         <li><a href="../Register/Login">ورود</a></li>
                                     }
                                     <li><a href="../MainPage/Call_With_us">تماس با ما</a></li>
-                                    <li><a href="#">درباره ما</a></li>
+                                    <li><a href="../MainPage/about_us">درباره ما</a></li>
                                     <li><a href="../MainPage/Main">خانه</a></li>
                                     if (ViewBag.user != null)
                                     {
@@ -90,30 +90,45 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="footer_widget wow fadeInLeftBig">
-                            <h2>Flickr ../Content/images</h2>
+                            <h2>طراحان سایت</h2>
+                           <ul class="tag_nav" dir="rtl">
+                               <li>
+                                   <h6>سجاد حقیقت</h6>
+                               </li>
+                               <li>
+                                   <h6>مهدی الهیاری</h6>
+                               </li>
+                           </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="col-lg-4 col-md-4 col-sm-4" dir="rtl">
                         <div class="footer_widget wow fadeInDown">
-                            <h2>Tag</h2>
+                            <h2>برچسب</h2>
                             <ul class="tag_nav">
-                                <li><a href="#">Games</a></li>
-                                <li><a href="#">Sports</a></li>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Life &amp; Style</a></li>
-                                <li><a href="#">Technology</a></li>
-                                <li><a href="#">Photo</a></li>
-                                <li><a href="#">Slider</a></li>
+                                <li><a href="#">بازی و سرگرمی</a></li>
+                                <li><a href="#">ورزش</a></li>
+                                <li><a href="#">فشن و مد</a></li>
+                                <li><a href="#">تجارت </a></li>
+                                <li><a href="#">پزشکی</a></li>
+                                <li><a href="#">فناوری</a></li>
+                                <li><a href="#">گالری عکس</a></li>
+                                <li><a href="#">اسلایدر</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="footer_widget wow fadeInRightBig">
-                            <h2>Contact</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> <address>
-                                Perfect News,1238 S . 123 St.Suite 25 Town City 3333,USA Phone: 123-326-789 Fax: 123-546-567
-                            </address>
+                            <h2>تماس</h2>
+                            <p dir="rtl">
+                                تماس با ما:
+                                صاحب امتیاز و مدیرمسئول: مهندسی نرم افزار
+                                <br />
+                                آدرس: ارومیه - دروازه مهاباد - میدان ابن سینا - خیابان شهید بیانی - ساختمان تشریفات - واحد ۵
+                                <br />
+                                فکس: ۹۳۶۶۰۰۰
+                                <br />
+                                پاسخگوی تلفنی ۲۴ ساعته: ۰۹۳۹۰۸۲۱۳۷۵
+                            </p>
                         </div>
                     </div>
                 </div>

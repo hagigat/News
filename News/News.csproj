@@ -135,6 +135,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Domin\Model1.edmx.sql" />
     <Content Include="Models\Domin\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -375,6 +376,7 @@
     <Content Include="Views\MainPage\View_Post.cshtml" />
     <Content Include="Views\Profile\Delete.cshtml" />
     <Content Include="Views\MainPage\call_with_us.cshtml" />
+    <Content Include="Views\MainPage\about_us.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

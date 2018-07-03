@@ -65,5 +65,9 @@ namespace News.Controllers
 
             return RedirectToAction("Message", "Register");
         }
+        public ActionResult about_us()
+        {
+            return View();
+        }
     }
 }
